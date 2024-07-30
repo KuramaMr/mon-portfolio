@@ -3,11 +3,14 @@
 import { useState, useEffect } from 'react';
 import FormationCard from '../components/FormationCard';
 
+const ITEMS_PER_PAGE = 5; // Nombre de formations par page
+
 export default function Formations() {
   const [formations, setFormations] = useState([]);
   const [filteredFormations, setFilteredFormations] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     fetch('/api/formations')
@@ -28,6 +31,7 @@ export default function Formations() {
         selectedTags.every(tag => formation.tags.includes(tag))
       ));
     }
+    setCurrentPage(1); // Réinitialiser à la première page lors du filtrage
   }, [selectedTags, formations]);
 
   const toggleTag = (tag) => {
@@ -37,6 +41,12 @@ export default function Formations() {
         : [...prevTags, tag]
     );
   };
+
+  const pageCount = Math.ceil(filteredFormations.length / ITEMS_PER_PAGE);
+  const paginatedFormations = filteredFormations.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   return (
     <div className="container mx-auto px-4">
@@ -56,9 +66,24 @@ export default function Formations() {
           </button>
         ))}
       </div>
-      {filteredFormations.map((formation) => (
+      {paginatedFormations.map((formation) => (
         <FormationCard key={formation.id} {...formation} />
       ))}
+      <div className="mt-4 flex justify-center">
+        {Array.from({ length: pageCount }, (_, i) => i + 1).map((page) => (
+          <button
+            key={page}
+            onClick={() => setCurrentPage(page)}
+            className={`mx-1 px-3 py-1 rounded ${
+              currentPage === page
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-200 text-gray-700'
+            }`}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
