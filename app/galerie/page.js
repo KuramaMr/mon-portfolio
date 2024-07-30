@@ -8,12 +8,26 @@ const ITEMS_PER_PAGE = 9; // Nombre d'images par page
 export default function Galerie() {
   const [images, setImages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch('/api/gallery')
-      .then(res => res.json())
-      .then(data => setImages(data));
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Erreur lors du chargement de la galerie');
+        }
+        return res.json();
+      })
+      .then(data => setImages(data))
+      .catch(err => {
+        console.error('Erreur:', err);
+        setError(err.message);
+      });
   }, []);
+
+  if (error) {
+    return <div className="text-red-500">Erreur: {error}</div>;
+  }
 
   const pageCount = Math.ceil(images.length / ITEMS_PER_PAGE);
   const paginatedImages = images.slice(
