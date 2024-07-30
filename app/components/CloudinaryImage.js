@@ -1,3 +1,5 @@
+'use client';
+
 import { CldImage } from 'next-cloudinary'
 
 export default function CloudinaryImage({ publicId, alt }) {

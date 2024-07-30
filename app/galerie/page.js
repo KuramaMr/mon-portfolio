@@ -1,8 +1,15 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import CloudinaryImage from '../components/CloudinaryImage';
 
 export default function Galerie() {
-  // Ces IDs seront remplacés par vos vrais IDs d'images Cloudinary
-  const imageIds = ['sample', 'sample2'];
+  const [imageIds, setImageIds] = useState([]);
+
+  useEffect(() => {
+    // Ici, vous pourriez charger les IDs d'image depuis une API ou un fichier
+    setImageIds(['sample', 'sample2']);
+  }, []);
 
   return (
     <div>
