@@ -21,16 +21,36 @@ export default function FormationEditor() {
 
   const addFormation = () => {
     const newFormation = {
-      id: Date.now(), // Utilisation de timestamp comme ID temporaire
+      id: Date.now(),
       titre: 'Nouvelle formation',
       description: 'Description de la nouvelle formation',
       duree: '1 jour'
     };
-    setFormations([...formations, newFormation]);
+    fetch('/api/formations', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newFormation)
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setFormations([...formations, { ...newFormation, id: data.id }]);
+        }
+      });
   };
 
   const removeFormation = (id) => {
-    setFormations(formations.filter(formation => formation.id !== id));
+    fetch('/api/formations', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setFormations(formations.filter(formation => formation.id !== id));
+        }
+      });
   };
 
   return (

@@ -21,15 +21,35 @@ export default function GalleryEditor() {
 
   const addImage = () => {
     const newImage = {
-      id: Date.now(), // Utilisation de timestamp comme ID temporaire
+      id: Date.now(),
       titre: 'Nouvelle image',
       publicId: 'default_public_id'
     };
-    setGallery([...gallery, newImage]);
+    fetch('/api/gallery', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newImage)
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setGallery([...gallery, { ...newImage, id: data.id }]);
+        }
+      });
   };
 
   const removeImage = (id) => {
-    setGallery(gallery.filter(image => image.id !== id));
+    fetch('/api/gallery', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setGallery(gallery.filter(image => image.id !== id));
+        }
+      });
   };
 
   return (
