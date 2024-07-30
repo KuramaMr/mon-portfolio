@@ -30,14 +30,14 @@ export default function AdminPage() {
         <div className="max-w-md w-full space-y-8">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Connexion à l'administration
+              Connexion à l&apos;administration
             </h2>
           </div>
           <form className="mt-8 space-y-6" onSubmit={handleLogin}>
             <input type="hidden" name="remember" value="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label htmlFor="username" className="sr-only">Nom d'utilisateur</label>
+                <label htmlFor="username" className="sr-only">Nom d&apos;utilisateur</label>
                 <input
                   id="username"
                   name="username"
