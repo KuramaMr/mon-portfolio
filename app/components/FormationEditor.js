@@ -20,11 +20,12 @@ export default function FormationEditor() {
   };
 
   return (
-    <div>
-      <h2>Éditeur de Formations</h2>
+    <div className="bg-white shadow overflow-hidden sm:rounded-lg p-6">
+      <h2 className="text-2xl font-bold mb-4">Éditeur de Formations</h2>
       {formations.map((formation, index) => (
-        <div key={formation.id}>
+        <div key={formation.id} className="mb-4 p-4 border rounded">
           <input
+            className="w-full mb-2 p-2 border rounded"
             value={formation.titre}
             onChange={(e) => {
               const newFormations = [...formations];
@@ -32,7 +33,8 @@ export default function FormationEditor() {
               setFormations(newFormations);
             }}
           />
-          <input
+          <textarea
+            className="w-full mb-2 p-2 border rounded"
             value={formation.description}
             onChange={(e) => {
               const newFormations = [...formations];
@@ -41,6 +43,7 @@ export default function FormationEditor() {
             }}
           />
           <input
+            className="w-full p-2 border rounded"
             value={formation.duree}
             onChange={(e) => {
               const newFormations = [...formations];
@@ -50,7 +53,12 @@ export default function FormationEditor() {
           />
         </div>
       ))}
-      <button onClick={handleSave}>Sauvegarder</button>
+      <button
+        onClick={handleSave}
+        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Sauvegarder
+      </button>
     </div>
   );
 }
