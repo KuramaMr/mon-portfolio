@@ -19,6 +19,20 @@ export default function FormationEditor() {
     }).then(() => alert('Formations sauvegardées'));
   };
 
+  const addFormation = () => {
+    const newFormation = {
+      id: Date.now(), // Utilisation de timestamp comme ID temporaire
+      titre: 'Nouvelle formation',
+      description: 'Description de la nouvelle formation',
+      duree: '1 jour'
+    };
+    setFormations([...formations, newFormation]);
+  };
+
+  const removeFormation = (id) => {
+    setFormations(formations.filter(formation => formation.id !== id));
+  };
+
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg p-6">
       <h2 className="text-2xl font-bold mb-4">Éditeur de Formations</h2>
@@ -51,8 +65,20 @@ export default function FormationEditor() {
               setFormations(newFormations);
             }}
           />
+          <button
+            onClick={() => removeFormation(formation.id)}
+            className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Supprimer
+          </button>
         </div>
       ))}
+      <button
+        onClick={addFormation}
+        className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 mr-2"
+      >
+        Ajouter une formation
+      </button>
       <button
         onClick={handleSave}
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"

@@ -19,6 +19,19 @@ export default function GalleryEditor() {
     }).then(() => alert('Galerie sauvegardée'));
   };
 
+  const addImage = () => {
+    const newImage = {
+      id: Date.now(), // Utilisation de timestamp comme ID temporaire
+      titre: 'Nouvelle image',
+      publicId: 'default_public_id'
+    };
+    setGallery([...gallery, newImage]);
+  };
+
+  const removeImage = (id) => {
+    setGallery(gallery.filter(image => image.id !== id));
+  };
+
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg p-6 mt-6">
       <h2 className="text-2xl font-bold mb-4">Éditeur de Galerie</h2>
@@ -42,8 +55,20 @@ export default function GalleryEditor() {
               setGallery(newGallery);
             }}
           />
+          <button
+            onClick={() => removeImage(image.id)}
+            className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Supprimer
+          </button>
         </div>
       ))}
+      <button
+        onClick={addImage}
+        className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 mr-2"
+      >
+        Ajouter une image
+      </button>
       <button
         onClick={handleSave}
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
