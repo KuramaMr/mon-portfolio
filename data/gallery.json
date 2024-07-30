@@ -1,0 +1,12 @@
+[
+    {
+      "id": 1,
+      "titre": "Image 1",
+      "publicId": "sample"
+    },
+    {
+      "id": 2,
+      "titre": "Image 2",
+      "publicId": "sample2"
+    }
+]

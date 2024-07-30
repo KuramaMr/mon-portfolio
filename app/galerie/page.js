@@ -1,22 +1,22 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import CloudinaryImage from '../components/CloudinaryImage';
+import galleryData from '../../data/gallery.json';
 
 export default function Galerie() {
-  const [imageIds, setImageIds] = useState([]);
-
-  useEffect(() => {
-    // Ici, vous pourriez charger les IDs d'image depuis une API ou un fichier
-    setImageIds(['sample', 'sample2']);
-  }, []);
-
   return (
-    <div>
-      <h1>Ma Galerie</h1>
-      {imageIds.map((id) => (
-        <CloudinaryImage key={id} publicId={id} alt={`Image ${id}`} />
-      ))}
+    <div className="container mx-auto px-4">
+      <h1 className="text-3xl font-bold mb-6">Ma Galerie</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {galleryData.map((image) => (
+          <div key={image.id} className="relative">
+            <CloudinaryImage publicId={image.publicId} alt={image.titre} />
+            <p className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2">
+              {image.titre}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

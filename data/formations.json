@@ -1,0 +1,14 @@
+    [
+        {
+          "id": 1,
+          "titre": "Introduction à React",
+          "description": "Apprenez les bases de React, une bibliothèque JavaScript populaire pour construire des interfaces utilisateur.",
+          "duree": "2 jours"
+        },
+        {
+          "id": 2,
+          "titre": "Next.js Avancé",
+          "description": "Plongez dans les fonctionnalités avancées de Next.js pour créer des applications web performantes.",
+          "duree": "3 jours"
+        }
+    ]
