@@ -11,7 +11,7 @@ export default function Galerie() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/.netlify/functions/gallery')
+    fetch('/api/gallery')
       .then(res => {
         if (!res.ok) {
           throw new Error('Erreur lors du chargement de la galerie');
