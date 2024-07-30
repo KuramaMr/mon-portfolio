@@ -16,10 +16,20 @@ export default function Formation({ formations }) {
 }
 
 export async function getStaticProps() {
-  const res = await client.getEntries({ content_type: 'formation' })
-  return {
-    props: {
-      formations: res.items,
-    },
+  try {
+    const res = await client.getEntries({ content_type: 'formation' }) // Assurez-vous que 'formation' est le nom exact du type de contenu dans Contentful
+    console.log('Contentful response:', res) // Ajoutez ce log pour le débogage
+    return {
+      props: {
+        formations: res.items,
+      },
+    }
+  } catch (error) {
+    console.error('Error fetching Contentful data:', error)
+    return {
+      props: {
+        formations: [],
+      },
+    }
   }
 }
