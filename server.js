@@ -11,7 +11,7 @@ const fs = require('fs');
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: 'http://127.0.0.1:5500'
+  origin: ['http://localhost:5500', 'https://portfolio-ferid.netlify.app/']
 }));
 app.use('/uploads', express.static('uploads'));
 

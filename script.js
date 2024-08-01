@@ -73,7 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('password').value;
 
         try {
-            const response = await fetch('http://localhost:3000/login', {
+            const API_URL = process.env.NODE_ENV === 'production' ? 'https://votre-api-url.com' : 'http://localhost:3000';
+            const response = await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
