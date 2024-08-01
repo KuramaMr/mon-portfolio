@@ -7,11 +7,12 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const API_URL = 'https://mon-portfolio-backend.onrender.com';
 
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:5500', 'https://portfolio-ferid.netlify.app/']
+  origin: ['http://localhost:5500', 'https://portfolio-ferid.netlify.app']
 }));
 app.use('/uploads', express.static('uploads'));
 
@@ -97,7 +98,7 @@ app.post('/upload-image', auth, upload.single('image'), async (req, res) => {
     if (req.file) {
         const newImage = new Image({
             filename: req.file.filename,
-            path: '/uploads/' + req.file.filename, // Assurez-vous que ce chemin est correct
+            path: `${API_URL}/uploads/${req.file.filename}`,
             description: req.body.description
         });
         await newImage.save();
@@ -127,7 +128,8 @@ app.delete('/image/:id', auth, async (req, res) => {
         }
         
         // Supprimer le fichier
-        fs.unlink(path.join(__dirname, image.path), (err) => {
+        const filePath = path.join(__dirname, 'uploads', path.basename(image.path));
+        fs.unlink(filePath, (err) => {
             if (err) console.error('Erreur lors de la suppression du fichier:', err);
         });
         

@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('password').value;
 
         try {
-            const API_URL = process.env.NODE_ENV === 'production' ? 'https://votre-api-url.com' : 'http://localhost:3000';
+            const API_URL = 'https://mon-portfolio-backend.onrender.com';
             const response = await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: {
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function loadImages() {
         try {
-            const response = await fetch('http://localhost:3000/images');
+            const response = await fetch('https://mon-portfolio-backend.onrender.com/images');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const imageId = event.target.closest('.gallery-item').dataset.id;
         if (confirm('Êtes-vous sûr de vouloir supprimer cette image ?')) {
             try {
-                const response = await fetch(`http://localhost:3000/image/${imageId}`, {
+                const response = await fetch(`https://mon-portfolio-backend.onrender.com/image/${imageId}`, {
                     method: 'DELETE',
                     headers: {
                         'auth-token': localStorage.getItem('auth-token')
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function updateImageDescription(imageId, newDescription) {
         try {
-            const response = await fetch(`http://localhost:3000/image/${imageId}`, {
+            const response = await fetch(`https://mon-portfolio-backend.onrender.com/image/${imageId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(uploadForm);
 
         try {
-            const response = await fetch('http://localhost:3000/upload-image', {
+            const response = await fetch('https://mon-portfolio-backend.onrender.com/upload-image', {
                 method: 'POST',
                 headers: {
                     'auth-token': localStorage.getItem('auth-token')
