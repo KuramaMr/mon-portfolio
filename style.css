@@ -128,6 +128,12 @@ nav ul li:last-child {
     }
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 #hero {
   height: 100vh;
   display: flex;
@@ -145,62 +151,167 @@ nav ul li:last-child {
   padding: 0 20px;
 }
 
-#hero .hero-content h2 {
-  font-size: 4rem;
-  font-weight: 200;
+#hero .hero-image {
+  width: 100%; /* Ajustez selon vos besoins */
+  height: 400px; /* Ajustez selon vos besoins */
+  object-fit: scale-down;
+  border: 3px solid var(--gold);
   margin-bottom: 1rem;
-  letter-spacing: 5px;
 }
 
 #hero .hero-content p {
   font-size: 1.5rem;
   font-weight: 300;
   margin-bottom: 2rem;
-}
-
-.scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 0;
-  right: 0;
-  text-align: center;
-  animation: bounce 2s infinite;
-  transition: opacity 0.3s ease;
-}
-
-.scroll-indicator a {
-  color: var(--gold);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.scroll-indicator a:hover {
   color: var(--white);
 }
 
-.scroll-indicator p {
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+.profile-image-container {
+    flex: 1;
+    max-width: 400px;
+    aspect-ratio: 1 / 1;
+    z-index: 1;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 30px var(--gold);
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: var(--gold);
+    z-index: 3;
+}
+
+@media (max-width: 1024px) {
+    #hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content {
+        padding-right: 0;
+        margin-bottom: 2rem;
+    }
+
+    .profile-image-container {
+        width: 60%;
+        max-width: 300px;
+        margin: 2rem 0;
+    }
+}
+
+@media (max-width: 768px) {
+    #hero .hero-image {
+        width: 100%;
+        height: 200px;
+    }
+
+    #hero .hero-content p {
+        font-size: 1.2rem;
+    }
+
+    .profile-image-container {
+        width: 80%;
+        max-width: 250px;
+    }
+}
+
+@media (max-height: 700px) and (min-width: 1025px) {
+    .profile-image-container {
+        max-width: 300px;
+    }
+}
+
+.logo-container {
+    margin-bottom: 2rem;
+}
+
+.logo {
+    max-width: 200px;
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+}
+
+.hero-content .subtitle {
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.hero-content .description {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.social-links {
+    margin-bottom: 2rem;
+}
+
+.social-links a {
+    color: var(--gold);
+    font-size: 1.5rem;
+}
+
+.cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.cta-button {
+    background-color: var(--gold);
+    color: var(--black);
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid var(--gold);
+}
+
+.cta-button:hover {
+    background-color: transparent;
+    color: var(--gold);
+}
+
+.scroll-indicator a {
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.9rem;
 }
 
 .scroll-indicator i {
-  font-size: 1.5rem;
-  color: var(--gold);
+    display: block;
+    margin-top: 0.5rem;
+    animation: bounce 2s infinite;
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-20px);
-  }
-  60% {
-    transform: translateY(-10px);
-  }
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
 }
 
 @keyframes modalFadeIn {
