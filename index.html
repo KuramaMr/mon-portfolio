@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio de Guelmaoui Ferid - Formateur CACES</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1><a href="#" id="top-link">Guelmaoui Ferid</a></h1>
+        <nav>
+            <ul>
+                <li><a href="#presentation">Présentation</a></li>
+                <li><a href="#formations">Formations</a></li>
+                <li><a href="#galerie">Galerie</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" id="image-management-link" style="display: none;">Gestion Images</a></li>
+                <li><a href="#" id="login-link">Admin</a></li>
+                <li><button id="logout-button" class="logout-btn" style="display: none;">Déconnexion</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h2>Guelmaoui Ferid</h2>
+                <p>Expert en formation CACES</p>
+            </div>
+            <div class="scroll-indicator">
+                <a href="#presentation" class="smooth-scroll">Découvrez mes services</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <section id="presentation">
+            <h2>Présentation</h2>
+            <div class="content-wrapper">
+                <div class="text-content">
+                    <p>Bonjour, je suis Guelmaoui Ferid, formateur spécialisé en CACES (Certificat d'Aptitude à la Conduite En Sécurité). Avec une expérience approfondie dans le domaine, je m'engage à fournir des formations de qualité pour assurer la sécurité et l'efficacité sur le lieu de travail.</p>
+                </div>
+                <div class="image-container">
+                </div>
+            </div>
+        </section>
+
+        <section id="formations">
+            <h2>Formations proposées</h2>
+            <ul>
+                <li>CACES R482 - Engins de chantier</li>
+                <li>CACES R485 - Chariots de manutention automoteurs gerbeurs à conducteur accompagnant</li>
+                <li>CACES R486 - Plates-formes élévatrices mobiles de personnel</li>
+                <li>CACES R489 - Chariots de manutention automoteurs à conducteur porté</li>
+            </ul>
+        </section>
+
+        <section id="galerie">
+            <h2>Galerie</h2>
+            <div id="gallery-container">
+                <!-- Les images seront ajoutées ici dynamiquement -->
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contactez-moi</h2>
+            <form action="submit_form.php" method="post">
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="nom" required>
+
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message :</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">Envoyer</button>
+            </form>
+        </section>
+    </main>
+
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Connexion Administrateur</h2>
+            <form id="login-form">
+                <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" required autocomplete="username">
+                <input type="password" id="password" name="password" placeholder="Mot de passe" required autocomplete="current-password">
+                <button type="submit">Se connecter</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="image-management" style="display: none;">
+        <h2>Gestion des images</h2>
+        <div id="admin-panel">
+            <h3>Ajouter une nouvelle image</h3>
+            <form id="upload-form">
+                <div class="file-input-wrapper">
+                    <input type="file" id="image-upload" name="image" accept="image/*" required>
+                    <label for="image-upload" class="custom-file-upload">Choisir un fichier</label>
+                </div>
+                <input type="text" id="image-description" name="description" placeholder="Description de l'image">
+                <button type="submit">Uploader</button>
+            </form>
+        </div>
+        <div id="image-list"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Guelmaoui Ferid - Tous droits réservés</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
