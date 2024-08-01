@@ -12,7 +12,7 @@ const API_URL = 'https://mon-portfolio-backend.onrender.com';
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:5500', 'https://portfolio-ferid.netlify.app']
+  origin: 'https://portfolio-ferid.netlify.app'
 }));
 app.use('/uploads', express.static('uploads'));
 
