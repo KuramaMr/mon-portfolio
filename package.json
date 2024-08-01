@@ -4,7 +4,7 @@
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build"
+    "build": "echo 'No build step required'"
   },
   "keywords": [],
   "author": "",
