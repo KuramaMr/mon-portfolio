@@ -148,7 +148,6 @@ body, html {
 
 #hero .hero-content {
   max-width: 800px;
-  padding: 0 20px;
 }
 
 #hero .hero-image {
@@ -158,6 +157,7 @@ body, html {
   border: 3px solid var(--gold);
   margin-bottom: 1rem;
   border-radius: 10px;
+  box-shadow: gold 0px 10px 20px, gold 0px 6px 6px;
 }
 
 #hero .hero-content p {
@@ -375,6 +375,7 @@ h2 {
   height: 400px;
   overflow: hidden;
   border-radius: 10px;
+  box-shadow: gold 0px 10px 20px, gold 0px 6px 6px;
 }
 
 #presentation img {
