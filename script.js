@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Formulaire de contact
 const contactForm = document.getElementById('contact-form');
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'; // URL par défaut pour le développement local
+const BACKEND_URL = CONFIG.BACKEND_URL; // URL par défaut pour le développement local
 
 contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
