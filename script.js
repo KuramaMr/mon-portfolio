@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+
     function displayImages(images) {
         const isAdmin = !!localStorage.getItem('auth-token');
         galleryContainer.innerHTML = images.map(image => `

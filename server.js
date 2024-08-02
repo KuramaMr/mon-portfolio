@@ -7,14 +7,30 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const API_URL = 'https://mon-portfolio-backend.onrender.com';
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'mon-portfolio',
+    allowed_formats: ['jpg', 'png', 'jpeg']
+  }
+});
+
+const upload = multer({ storage: storage });
 
 const app = express();
 app.use(express.json());
 app.use(cors({
   origin: 'https://portfolio-ferid.netlify.app'
 }));
-app.use('/uploads', express.static('uploads'));
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
@@ -74,31 +90,12 @@ app.get('/admin-dashboard', auth, (req, res) => {
     res.send('Bienvenue sur le tableau de bord admin');
 });
 
-// Configuration de multer pour le stockage des images
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/') // Assurez-vous que ce dossier existe
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname))
-    }
-});
-
-const upload = multer({ storage: storage });
-
-// Modèle pour les images
-const Image = mongoose.model('Image', new mongoose.Schema({
-    filename: String,
-    path: String,
-    description: String
-}));
-
 // Route pour uploader une image
 app.post('/upload-image', auth, upload.single('image'), async (req, res) => {
     if (req.file) {
         const newImage = new Image({
             filename: req.file.filename,
-            path: `${API_URL}/uploads/${req.file.filename}`,
+            path: req.file.path,
             description: req.body.description
         });
         await newImage.save();
@@ -107,6 +104,13 @@ app.post('/upload-image', auth, upload.single('image'), async (req, res) => {
         res.status(400).send('Erreur lors de l\'upload de l\'image');
     }
 });
+
+// Modèle pour les images
+const Image = mongoose.model('Image', new mongoose.Schema({
+    filename: String,
+    path: String,
+    description: String
+}));
 
 // Route pour récupérer toutes les images
 app.get('/images', async (req, res) => {
@@ -127,11 +131,9 @@ app.delete('/image/:id', auth, async (req, res) => {
             return res.status(404).send('Image non trouvée');
         }
         
-        // Supprimer le fichier
-        const filePath = path.join(__dirname, 'uploads', path.basename(image.path));
-        fs.unlink(filePath, (err) => {
-            if (err) console.error('Erreur lors de la suppression du fichier:', err);
-        });
+        // Supprimer l'image de Cloudinary
+        const publicId = image.path.split('/').pop().split('.')[0];
+        await cloudinary.uploader.destroy(publicId);
         
         await Image.findByIdAndDelete(req.params.id);
         res.send('Image supprimée avec succès');
@@ -162,3 +164,31 @@ app.patch('/image/:id', auth, async (req, res) => {
 app.get('/verify-token', auth, (req, res) => {
     res.status(200).send('Token valide');
 });
+
+// Migration des images existantes vers Cloudinary
+const mongoose = require('mongoose');
+const cloudinary = require('cloudinary').v2;
+const fs = require('fs');
+const path = require('path');
+
+// Configuration de Mongoose et Cloudinary...
+
+async function migrateImages() {
+    const images = await Image.find();
+    for (let image of images) {
+        if (image.path.startsWith('http')) continue; // Déjà sur Cloudinary
+        
+        const localPath = path.join(__dirname, 'uploads', path.basename(image.path));
+        if (fs.existsSync(localPath)) {
+            const result = await cloudinary.uploader.upload(localPath);
+            image.path = result.secure_url;
+            await image.save();
+            console.log(`Migrated: ${image.filename}`);
+        } else {
+            console.log(`File not found: ${image.filename}`);
+        }
+    }
+    console.log('Migration complete');
+}
+
+migrateImages().then(() => mongoose.disconnect());
