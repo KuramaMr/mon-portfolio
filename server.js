@@ -9,6 +9,7 @@ const path = require('path');
 const fs = require('fs');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const nodemailer = require('nodemailer');
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -163,6 +164,53 @@ app.patch('/image/:id', auth, async (req, res) => {
 // Route pour vérifier la validité du token
 app.get('/verify-token', auth, (req, res) => {
     res.status(200).send('Token valide');
+});
+
+// Configuration de Nodemailer
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
+// Fonction de validation du formulaire
+function validateForm(nom, email, message) {
+    if (!nom || nom.length < 2 || nom.length > 50) {
+        return 'Le nom doit contenir entre 2 et 50 caractères.';
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return 'Veuillez fournir une adresse email valide.';
+    }
+    if (!message || message.length < 10 || message.length > 1000) {
+        return 'Le message doit contenir entre 10 et 1000 caractères.';
+    }
+    return null;
+}
+
+// Route pour le formulaire de contact
+app.post('/submit-form', async (req, res) => {
+    const { nom, email, message } = req.body;
+    const error = validateForm(nom, email, message);
+    if (error) {
+        return res.status(400).send(error);
+    }
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: 'takenzmr@gmail.com', // L'email où vous voulez recevoir les messages
+        subject: `Nouveau message de ${nom}`,
+        text: `Nom: ${nom}\nEmail: ${email}\nMessage: ${message}`
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        res.status(200).send('Message envoyé avec succès');
+    } catch (error) {
+        console.error('Erreur lors de l\'envoi de l\'email:', error);
+        res.status(500).send('Erreur lors de l\'envoi du message');
+    }
 });
 
 // Fonction pour migrer les images existantes vers Cloudinary

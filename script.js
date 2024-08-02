@@ -272,3 +272,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
     loadImages();
 });
+
+// Formulaire de contact
+const contactForm = document.getElementById('contact-form');
+
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const formProps = Object.fromEntries(formData);
+
+    try {
+        const response = await fetch('/submit-form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formProps),
+        });
+
+        if (response.ok) {
+            alert('Message envoyé avec succès !');
+            e.target.reset(); // Réinitialise le formulaire
+        } else {
+            alert('Erreur lors de l\'envoi du message. Veuillez réessayer.');
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+        alert('Une erreur est survenue. Veuillez réessayer plus tard.');
+    }
+});
