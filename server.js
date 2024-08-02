@@ -201,7 +201,7 @@ app.post('/submit-form', async (req, res) => {
         from: process.env.EMAIL_USER,
         to: 'takenzmr@gmail.com', // L'email où vous voulez recevoir les messages
         subject: `Nouveau message de ${nom}`,
-        text: `Nom: ${nom}\nEmail: ${email}\nMessage: ${message}`
+        text: `Nom: ${nom}\nEmail: ${email}\nMessage: \n${message}`
     };
 
     try {
