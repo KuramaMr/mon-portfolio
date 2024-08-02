@@ -18,6 +18,9 @@
 [build.processing.images]
     compress = true
 
+[build.environment]
+    REACT_APP_BACKEND_URL = "https://mon-portfolio-backend.onrender.com"
+
 [[redirects]]
     from = "/*"
     to = "/index.html"
