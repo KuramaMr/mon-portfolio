@@ -165,14 +165,7 @@ app.get('/verify-token', auth, (req, res) => {
     res.status(200).send('Token valide');
 });
 
-// Migration des images existantes vers Cloudinary
-const mongoose = require('mongoose');
-const cloudinary = require('cloudinary').v2;
-const fs = require('fs');
-const path = require('path');
-
-// Configuration de Mongoose et Cloudinary...
-
+// Fonction pour migrer les images existantes vers Cloudinary
 async function migrateImages() {
     const images = await Image.find();
     for (let image of images) {
@@ -191,4 +184,5 @@ async function migrateImages() {
     console.log('Migration complete');
 }
 
-migrateImages().then(() => mongoose.disconnect());
+// Vous pouvez appeler cette fonction une fois lors du démarrage du serveur si nécessaire
+// migrateImages().then(() => console.log('Migration terminée'));
