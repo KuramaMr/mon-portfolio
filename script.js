@@ -85,23 +85,23 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 const token = await response.text();
                 localStorage.setItem('auth-token', token);
-                alert('Connexion réussie !');
+                showNotification('Connexion réussie !');
                 loginModal.style.display = 'none';
                 updateUIForLoggedInUser();
             } else {
                 const error = await response.text();
-                alert(`Erreur de connexion : ${error}`);
+                showNotification(`Erreur de connexion : ${error}`, 'error');
             }
         } catch (error) {
             console.error('Erreur:', error);
-            alert('Une erreur est survenue lors de la connexion');
+            showNotification('Une erreur est survenue lors de la connexion', 'error');
         }
     });
 
     logoutButton.addEventListener('click', () => {
         localStorage.removeItem('auth-token');
         updateUIForLoggedOutUser();
-        alert('Vous êtes déconnecté');
+        showNotification('Vous êtes déconnecté');
     });
 
     async function loadImages() {
@@ -158,15 +158,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
                 if (response.ok) {
-                    alert('Image supprimée avec succès');
+                    showNotification('Image supprimée avec succès');
                     loadImages();
                 } else {
                     const error = await response.text();
-                    alert(`Erreur lors de la suppression : ${error}`);
+                    showNotification(`Erreur lors de la suppression : ${error}`, 'error');
                 }
             } catch (error) {
                 console.error('Erreur:', error);
-                alert('Une erreur est survenue lors de la suppression');
+                showNotification('Une erreur est survenue lors de la suppression', 'error');
             }
         }
     }
@@ -195,15 +195,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify({ description: newDescription })
             });
             if (response.ok) {
-                alert('Description mise à jour avec succès');
+                showNotification('Description mise à jour avec succès');
                 loadImages();
             } else {
                 const error = await response.text();
-                alert(`Erreur lors de la mise à jour : ${error}`);
+                showNotification(`Erreur lors de la mise à jour : ${error}`, 'error');
             }
         } catch (error) {
             console.error('Erreur:', error);
-            alert('Une erreur est survenue lors de la mise à jour');
+            showNotification('Une erreur est survenue lors de la mise à jour', 'error');
         }
     }
 
@@ -221,15 +221,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (response.ok) {
-                alert('Image uploadée avec succès');
+                showNotification('Image uploadée avec succès');
                 loadImages();
             } else {
                 const error = await response.text();
-                alert(`Erreur lors de l'upload : ${error}`);
+                showNotification(`Erreur lors de l'upload : ${error}`, 'error');
             }
         } catch (error) {
             console.error('Erreur:', error);
-            alert('Une erreur est survenue lors de l\'upload');
+            showNotification('Une erreur est survenue lors de l\'upload', 'error');
         }
     });
 
@@ -294,13 +294,33 @@ contactForm.addEventListener('submit', async (e) => {
         });
 
         if (response.ok) {
-            alert('Message envoyé avec succès !');
+            showNotification('Message envoyé avec succès !');
             e.target.reset(); // Réinitialise le formulaire
         } else {
-            alert('Erreur lors de l\'envoi du message. Veuillez réessayer.');
+            showNotification('Erreur lors de l\'envoi du message. Veuillez réessayer.', 'error');
         }
     } catch (error) {
         console.error('Erreur:', error);
-        alert('Une erreur est survenue. Veuillez réessayer plus tard.');
+        showNotification('Une erreur est survenue. Veuillez réessayer plus tard.', 'error');
     }
 });
+
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    
+    const container = document.getElementById('notification-container');
+    container.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 10);
+
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            container.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
