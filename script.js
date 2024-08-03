@@ -290,11 +290,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Formulaire de contact
 const contactForm = document.getElementById('contact-form');
+const messageInput = document.getElementById('message');
+const charCount = document.getElementById('char-count');
+const messageError = document.getElementById('message-error');
 
-const BACKEND_URL = CONFIG.BACKEND_URL; // URL par défaut pour le développement local
+const BACKEND_URL = CONFIG.BACKEND_URL;
+const MIN_CHARS = 50;
+
+messageInput.addEventListener('input', function() {
+    const remainingChars = MIN_CHARS - this.value.length;
+    charCount.textContent = `(${this.value.length}/${MIN_CHARS} caractères minimum)`;
+    
+    if (remainingChars > 0) {
+        messageError.style.display = 'block';
+        messageError.textContent = `Il manque ${remainingChars} caractère${remainingChars > 1 ? 's' : ''}.`;
+    } else {
+        messageError.style.display = 'none';
+    }
+});
 
 contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    if (messageInput.value.length < MIN_CHARS) {
+        messageError.style.display = 'block';
+        return;
+    }
 
     const formData = new FormData(e.target);
     const formProps = Object.fromEntries(formData);
@@ -310,7 +331,8 @@ contactForm.addEventListener('submit', async (e) => {
 
         if (response.ok) {
             showNotification('Message envoyé avec succès !');
-            e.target.reset(); // Réinitialise le formulaire
+            e.target.reset();
+            charCount.textContent = `(0/${MIN_CHARS} caractères minimum)`;
         } else {
             showNotification('Erreur lors de l\'envoi du message. Veuillez réessayer.', 'error');
         }
