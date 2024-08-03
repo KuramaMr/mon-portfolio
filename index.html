@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="print.css" media="print">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         window.BACKEND_URL = '{{ BACKEND_URL }}';
     </script>
@@ -36,11 +38,13 @@
     </header>
 
     <main>
-        <section id="hero">
+        <section id="hero" data-aos="fade-up">
             <div class="hero-content">
-                <!-- Remplacer le contenu existant par une image -->
                 <img src="images/CarteFerid.png" alt="Guelmaoui Ferid" class="hero-image">
-                <p>Expert en formation CACES</p>
+                
+            </div>
+            <div>
+                <p id="typed-text"></p>
             </div>
             <div class="scroll-indicator">
                 <a href="#presentation" class="smooth-scroll">Découvrez mes services</a>
@@ -48,20 +52,20 @@
             </div>
         </section>
 
-        <section id="presentation">
+        <section id="presentation" data-aos="fade-up">
             <h2>Présentation</h2>
             <div class="content-wrapper">
                 <div class="text-content">
-                    <p> Depuis maintenant 25 ans, j’exerce dans le domaine qui me passionne depuis toujours, la logistique. 
-                        De la logistique industrielle à l’aéronautique, en passant par les transports publics urbains et le BTP, j’ai acquis des connaissances parfaites et une forte expérience dans ce domaine mais surtout grâce à des méthodes,
-                        des pratiques et des techniques apprises, j’ai développé une pédagogie évidente pour moi, qui a été de transmettre mon savoir. 
-                        C’est pourquoi aujourd’hui je suis formateur. En 2022, Je me suis donc perfectionné en passant mon titre professionnel FPA et c’est en novembre de cette même année que je suis devenu auto entrepreneur, 
+                    <p> Depuis maintenant 25 ans, j'exerce dans le domaine qui me passionne depuis toujours, la logistique. 
+                        De la logistique industrielle à l'aéronautique, en passant par les transports publics urbains et le BTP, j'ai acquis des connaissances parfaites et une forte expérience dans ce domaine mais surtout grâce à des méthodes,
+                        des pratiques et des techniques apprises, j'ai développé une pédagogie évidente pour moi, qui a été de transmettre mon savoir. 
+                        C'est pourquoi aujourd'hui je suis formateur. En 2022, Je me suis donc perfectionné en passant mon titre professionnel FPA et c'est en novembre de cette même année que je suis devenu auto entrepreneur, 
                         Formateur Professionnel. </p> <br>
 
-                    <p> Depuis 2022, j’ai eu l’opportunité de travailler pour plusieurs centres de formations, agences d’intérim et entreprises privées, 
-                        ce qui m’a permis de mettre en pratique mon savoir-faire. Je me suis appuyé sur des méthodes et des pratiques adaptées, 
-                        afin de développer chez les apprenants les compétences nécessaires pour réussir à travers mes différents programmes de formation pour lesquels j’ai été sollicités. 
-                        Aujourd’hui, formateur reconnu dans ma région, je souhaite élargir mon réseau professionnel et proposer mes services à travers la France mais surtout dans votre région. 
+                    <p> Depuis 2022, j'ai eu l'opportunité de travailler pour plusieurs centres de formations, agences d'intérim et entreprises privées, 
+                        ce qui m'a permis de mettre en pratique mon savoir-faire. Je me suis appuyé sur des méthodes et des pratiques adaptées, 
+                        afin de développer chez les apprenants les compétences nécessaires pour réussir à travers mes différents programmes de formation pour lesquels j'ai été sollicités. 
+                        Aujourd'hui, formateur reconnu dans ma région, je souhaite élargir mon réseau professionnel et proposer mes services à travers la France mais surtout dans votre région. 
                         Je suis certain que collaborer ensemble, nous mènera à développer de belles choses.</p>
                 </div>
                 <div class="image-container">
@@ -70,7 +74,7 @@
             </div>
         </section>
 
-        <section id="formations">
+        <section id="formations" data-aos="fade-up">
             <h2>Formations proposées</h2>
             <ul>
                 <li>CACES R485 - Chariots de manutention automoteurs gerbeurs à conducteur accompagnant</li>
@@ -79,7 +83,7 @@
             </ul>
         </section>
 
-        <section id="galerie">
+        <section id="galerie" data-aos="fade-up">
             <h2>Galerie</h2>
             <div id="gallery-container">
                 <!-- Les images seront ajoutées ici dynamiquement -->
@@ -102,7 +106,7 @@
             <div id="image-list"></div>
         </div>
 
-        <section id="contact">
+        <section id="contact" data-aos="fade-up">
             <h2>Contactez-moi</h2>
             <form id="contact-form">
                 <label for="nom">Nom :</label>
@@ -119,7 +123,7 @@
         </section>
     </main>
 
-    <section id="partenaires">
+    <section id="partenaires" data-aos="fade-up">
         <h2>Nos Partenaires</h2>
         <div class="partenaires-grid">
             <div class="partenaire"><img src="images/AfpaTransparent.png" alt="Partenaire 1"></div>
@@ -152,6 +156,9 @@
     </footer>   
     <script src="config.js"></script>
     <script src="script.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
 
 </html>

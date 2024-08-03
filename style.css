@@ -1076,3 +1076,24 @@ nav ul li a {
       height: 100px;
   }
 }
+
+#typed-text {
+  margin-top: 50px;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: white;
+  border-right: 2px solid var(--gold);
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--white) }
+}

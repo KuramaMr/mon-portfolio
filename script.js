@@ -271,6 +271,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     loadImages();
+
+    // Animation de texte tapé
+    const text = "Expert en formation CACES";
+    const typedTextElement = document.getElementById('typed-text');
+    let i = 0;
+
+    function typeWriter() {
+        if (i < text.length) {
+            typedTextElement.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 100);
+        }
+    }
+
+    typeWriter();
 });
 
 // Formulaire de contact
@@ -350,5 +365,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('show')) {
             mainNav.classList.remove('show');
         }
+    });
+});
+
+// Ajout des animations AOS
+document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+        duration: 2000,
+        once: true,
+        offset: 300
     });
 });
