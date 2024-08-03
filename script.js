@@ -324,3 +324,20 @@ function showNotification(message, type = 'success') {
         }, 300);
     }, 3000);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainNav = document.getElementById('main-nav');
+
+    menuToggle.addEventListener('click', function() {
+        mainNav.classList.toggle('show');
+    });
+
+    // Fermer le menu lorsqu'un lien est cliqué
+    const navLinks = mainNav.querySelectorAll('a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mainNav.classList.remove('show');
+        });
+    });
+});
