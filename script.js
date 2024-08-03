@@ -330,6 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainNav = document.getElementById('main-nav');
 
     menuToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
         mainNav.classList.toggle('show');
     });
 
@@ -339,5 +340,15 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', () => {
             mainNav.classList.remove('show');
         });
+    });
+
+    // Fermer le menu lorsqu'on clique en dehors
+    document.addEventListener('click', function(event) {
+        const isClickInsideNav = mainNav.contains(event.target);
+        const isClickOnToggle = menuToggle.contains(event.target);
+        
+        if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('show')) {
+            mainNav.classList.remove('show');
+        }
     });
 });
