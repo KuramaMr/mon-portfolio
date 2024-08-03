@@ -373,6 +373,12 @@ document.addEventListener('DOMContentLoaded', function() {
     AOS.init({
         duration: 2000,
         once: true,
-        offset: 300
+        offset: 300,
+        disable: 'mobile' // Désactive sur mobile pour éviter les problèmes de performance
     });
-});
+
+    // Réinitialise la position de défilement
+    window.scrollTo(0, 0);
+}, 100); // Délai de 100ms
+
+
