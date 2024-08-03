@@ -29,9 +29,11 @@ const upload = multer({ storage: storage });
 
 const app = express();
 app.use(express.json());
-app.use(cors({
-  origin: 'https://portfolio-ferid.netlify.app'
-}));
+const corsOptions = {
+  origin: 'https://portfolio-ferid.netlify.app',
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
