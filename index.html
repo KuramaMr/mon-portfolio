@@ -84,6 +84,22 @@
             </div>
         </section>
 
+        <div id="image-management" style="display: none;">
+        <h2>Gestion des images</h2>
+        <div id="admin-panel">
+            <h3>Ajouter une nouvelle image</h3>
+            <form id="upload-form">
+                <div class="file-input-wrapper">
+                    <input type="file" id="image-upload" name="image" accept="image/*" required>
+                    <label for="image-upload" class="custom-file-upload">Choisir un fichier</label>
+                </div>
+                <input type="text" id="image-description" name="description" placeholder="Description de l'image">
+                <button type="submit">Uploader</button>
+            </form>
+        </div>
+            <div id="image-list"></div>
+        </div>
+
         <section id="contact">
             <h2>Contactez-moi</h2>
             <form id="contact-form">
@@ -113,21 +129,7 @@
         </div>
     </div>
 
-    <div id="image-management" style="display: none;">
-        <h2>Gestion des images</h2>
-        <div id="admin-panel">
-            <h3>Ajouter une nouvelle image</h3>
-            <form id="upload-form">
-                <div class="file-input-wrapper">
-                    <input type="file" id="image-upload" name="image" accept="image/*" required>
-                    <label for="image-upload" class="custom-file-upload">Choisir un fichier</label>
-                </div>
-                <input type="text" id="image-description" name="description" placeholder="Description de l'image">
-                <button type="submit">Uploader</button>
-            </form>
-        </div>
-        <div id="image-list"></div>
-    </div>
+    
 
     <footer>
         <p>&copy; 2024 Guelmaoui Ferid - Tous droits réservés</p>
