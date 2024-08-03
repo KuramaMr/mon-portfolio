@@ -945,17 +945,29 @@ footer {
 
 @media (max-width: 768px) {
   header {
-      flex-wrap: wrap;
-      justify-content: space-between;
-  }
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+}
 
   #menu-toggle {
-      display: block;
+    display: block;
+    z-index: 1001; /* Assurez-vous que le bouton reste au-dessus du menu */
   }
 
   #main-nav {
-      flex-basis: 100%;
-      display: none;
+    flex-basis: 100%;
+    display: none;
+    position: absolute;
+    top: 100%; /* Positionne le menu juste en dessous du header */
+    left: 0;
+    right: 0;
+    padding: 1rem 0;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    background-color: rgba(10, 10, 10, 0.95); /* Fond semi-transparent */
+        backdrop-filter: blur(5px); /* Effet de flou */
+        -webkit-backdrop-filter: blur(5px); /* Utilisez la couleur de fond de votre header */
   }
 
   #main-nav.show {
@@ -963,11 +975,32 @@ footer {
   }
 
   nav ul {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin: 0;
   }
 
-  nav ul li {
-      margin: 10px 0;
+nav ul li {
+    margin: 10px 0;
+    width: 100%;
+    text-align: center;
+  }
+
+nav ul li a {
+    display: block;
+    padding: 10px 0;
+    width: 100%;
+  }
+
+/* Style pour le bouton de déconnexion dans le menu mobile */
+.logout-btn {
+    background: none;
+    border: none;
+    color: var(--gold);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 10px 0;
+    width: 100%;
   }
 }
