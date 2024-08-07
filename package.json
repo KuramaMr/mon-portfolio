@@ -4,7 +4,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "echo 'No build step required'"
+    "build": "echo 'No build step required'",
+    "cypress:open": "cypress open"
   },
   "keywords": [],
   "author": "",
@@ -24,5 +25,9 @@
   },
   "engines": {
     "node": "18.16.0"
+  },
+  "devDependencies": {
+    "cypress": "^13.13.2",
+    "cypress-file-upload": "^5.0.8"
   }
 }
