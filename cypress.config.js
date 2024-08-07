@@ -9,7 +9,6 @@ module.exports = defineConfig({
     supportFile: 'cypress/support/e2e.js',
   },
   env: {
-    ADMIN_USERNAME: 'Ferid',
-    ADMIN_PASSWORD: 'Dorian51'
+    // Les variables d'environnement seront définies ailleurs
   }
 })
