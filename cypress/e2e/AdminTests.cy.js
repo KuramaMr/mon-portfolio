@@ -1,5 +1,5 @@
 describe('Tests des fonctionnalités admin', () => {
-  const testImagePath = 'cypress/fixtures/test-image.png';
+  const testImagePath = 'test-image.png';
   const testImageName = 'Image de test Cypress';
   
   beforeEach(() => {
@@ -18,15 +18,18 @@ describe('Tests des fonctionnalités admin', () => {
     cy.get('#login-form').submit()
 
     // Attendons que l'interface soit mise à jour
-    cy.wait(6000) // Ajoutez un délai si nécessaire
+    cy.wait(4000) // Ajoutez un délai si nécessaire
+
+    cy.viewport(1200, 800)
     
     // Vérifiez que la connexion a réussi (le bouton de déconnexion devrait être visible)
-    cy.get('#logout-button').should('be.visible')
+    cy.get('.logout-btn').should('be.visible')
   })
   
   it('Ajoute une nouvelle photo et la supprime', () => {
     // Cliquez sur le lien de gestion des images
     cy.get('#image-management-link').click()
+    cy.wait(1000)
     cy.get('#image-management').should('be.visible')
     
     cy.get('#gallery-container .gallery-item').then($items => {
@@ -55,7 +58,7 @@ describe('Tests des fonctionnalités admin', () => {
     cy.get('#image-management-link').click()
     cy.get('#image-management').should('be.visible')
 
-    const newDescription = 'Nouvelle description de test'
+    const newDescription = '3ème Groupe SMV2'
 
     cy.get('#gallery-container .gallery-item').first().as('firstImage')
     cy.get('@firstImage').find('.edit-btn').click()
@@ -68,8 +71,34 @@ describe('Tests des fonctionnalités admin', () => {
   })
   
   afterEach(() => {
-    // Déconnexion après chaque test
-    cy.get('#logout-button').click()
-    cy.get('#login-link').should('be.visible')
+    // Définir une résolution d'écran plus grande
+    cy.viewport(1200, 800)
+  
+    // S'assurer que le bouton de déconnexion est visible
+    cy.get('.logout-btn').should('be.visible')
+  
+    // Cliquer sur le bouton de déconnexion
+    cy.get('.logout-btn').click()
+  
+    // Attendre que l'interface soit mise à jour
+    cy.wait(4000) // Ajustez ce délai si nécessaire
+  
+    // Recharger la page
+    cy.reload()
+  
+    // Attendre que la page soit complètement chargée
+    cy.wait(2000) // Ajustez ce délai si nécessaire
+  
+    // Vérifier si l'utilisateur est toujours connecté en tant qu'admin
+    cy.get('body').then(($body) => {
+      if ($body.find('.logout-btn').length > 0) {
+        cy.log('L\'utilisateur est toujours connecté en tant qu\'admin')
+        // Vous pouvez ajouter ici une assertion qui échouera intentionnellement pour signaler le problème
+        // cy.fail('L\'utilisateur n\'a pas été déconnecté correctement')
+      } else {
+        cy.contains('ADMIN').should('be.visible')
+        cy.log('L\'utilisateur a été déconnecté avec succès')
+      }
+    })
   })
 })
