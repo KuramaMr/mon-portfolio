@@ -30,7 +30,7 @@ const upload = multer({ storage: storage });
 const app = express();
 app.use(express.json());
 const corsOptions = {
-  origin: 'https://portfolio-ferid.netlify.app',
+  origin: ['https://portfolio-ferid.netlify.app', 'http://localhost:3000', 'http://127.0.0.1:5500'],
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
