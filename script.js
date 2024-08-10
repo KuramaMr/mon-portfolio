@@ -395,8 +395,7 @@ document.addEventListener('DOMContentLoaded', function() {
     AOS.init({
         duration: 2000,
         once: true,
-        offset: 300,
-        disable: 'mobile' // Désactive sur mobile pour éviter les problèmes de performance
+        offset: 300
     });
 
     // Réinitialise la position de défilement
