@@ -339,11 +339,12 @@ section {
 h2 {
   color: var(--gold);
   font-size: 2.5rem;
-  font-weight: 200;
   margin-bottom: 2rem;
   letter-spacing: 3px;
   text-align: center;
   width: 100%;
+  font-weight: 400;
+  letter-spacing: 2px;
 }
 
 #presentation, #galerie {
@@ -389,6 +390,9 @@ h2 {
   background-color: var(--dark-gray);
   padding: 4rem;
   border-radius: 10px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #formations ul {
@@ -410,6 +414,13 @@ h2 {
 }
 
 @media (max-width: 768px) {
+  #formations h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+  }
+
   #formations ul {
     grid-template-columns: 1fr;
   }
